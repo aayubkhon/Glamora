@@ -1,0 +1,15 @@
+{
+  "name": "glamora",
+  "version": "1.0.0",
+  "description": "it's our delevry projection",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js",
+    "train":"nodemon train.js",
+
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "AyubKhan",
+  "license": "ISC"
+}
