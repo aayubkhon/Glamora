@@ -16,12 +16,13 @@ const memberSchema = new mongoose.Schema(
     mb_phone: {
       type: String,
       required: true,
+      index: { unique: true, sparse: true },
+
     },
     mb_password: {
       type: String,
       required: true,
       select: false,
-      index: { unique: true, sparse: true },
     },
     mb_type: {
       type: String,

@@ -17,6 +17,7 @@ app.set("view engine", "ejs");
 // 4 Routing code
 
 app.use("/",router)
+// app.use("/shop",router_bssr)
 // Post malumotni ozi bilan birga olip keladi va Date base ga yozadi
 
 
