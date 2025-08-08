@@ -11,17 +11,19 @@ const ShopController = require("./controllers/ShopController");
 
 // router_bssr.get("/", ShopController.home);
 
-router_bssr.get("/signup", ShopController.getSignupMyShop)
-router_bssr.post("/signup", ShopController.signupProcess);
+router_bssr
+  .get("/signup", ShopController.getSignupMyShop)
+  .post("/signup", ShopController.signupProcess);
 
-router_bssr.get("/login", ShopController.getLoginMyShop)
- router_bssr.post("/login", ShopController.loginProcess);
+router_bssr
+  .get("/login", ShopController.getLoginMyShop)
+  .post("/login", ShopController.loginProcess);
 
 // router_bssr.get("/logout", ShopController.logout);
 
 // router_bssr.get("/check-me", ShopController.checkSessions);
 
-// router_bssr.get("/products/menu", ShopController.getMyShoppData);
+router_bssr.get("products/collections", ShopController.getMyShopData);
 // router_bssr.post(
 //   "/products/create",
 //   ShopController.validateAuthShopp,
