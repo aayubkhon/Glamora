@@ -55,10 +55,10 @@ ShopController.loginProcess = async (req, res) => {
     member = new Member();
     result = await member.loginData(data);
 
-   req.session.member = result;
-   req.session.save(function () {
-    res.redirect("/shop/products/collections")
-   })
+    req.session.member = result;
+    req.session.save(function () {
+      res.redirect("/shop/products/collections");
+    });
   } catch (err) {
     console.log(`ERROR, cont/loginProcess,${err.message}`);
     res.json({ state: "fail", message: err.message });
@@ -70,10 +70,22 @@ ShopController.logout = (req, res) => {
   res.send("logout page");
 };
 
+ShopController.validateAuthShop = (req, res, next) => {
+  if (req.session?.member?.mb_type === "SHOP") {
+    req.member = req.session.member;
+    next();
+  } else {
+    res.json({
+      state: "fail",
+      message: "only  authenticated members with shop type",
+    });
+  }
+};
+
 ShopController.checkSessions = (req, res) => {
- if (req.session.member) {
+  if (req.session?.member) {
     res.json({ state: "success", data: req.session.member });
-} else {
+  } else {
     res.json({ state: "fail", message: "You are not authenticated" });
-}
+  }
 };

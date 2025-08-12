@@ -1,7 +1,7 @@
 const express = require("express");
 const router_bssr = express.Router();
 const ShopController = require("./controllers/ShopController");
-// const productController = require("./controllers/productController");
+const productController = require("./controllers/productController");
 // const uploader_product = require("./utils/upload-multer")("products");
 
 // const uploader_memeber = require("./utils/upload-multer")("members");
@@ -21,18 +21,18 @@ router_bssr
 
 // router_bssr.get("/logout", ShopController.logout);
 
-router_bssr.get("/check_me",ShopController.checkSessions)
+router_bssr.get("/check_me", ShopController.checkSessions);
 
 router_bssr.get("/products/collections", ShopController.getMyShopData);
-// router_bssr.post(
-//   "/products/create",
-//   ShopController.validateAuthShopp,
-//   uploader_product.array("product_images", 5),
-//   productController.addNewProduct
-// );
-// router_bssr.post(
-//   "/products/edit/:id",
-//   ShopController.validateAuthShopp,
-//   productController.updateChosenProduct
-// );
+router_bssr.post(
+  "/products/create",
+  ShopController.validateAuthShop,
+  productController.addNewProduct
+);
+router_bssr.post(
+  "/products/edit/:id",
+  // ShopController.validateAuthShopp,
+  productController.updateChoosenProduct
+);
+
 module.exports = router_bssr;
