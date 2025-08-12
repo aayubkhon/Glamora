@@ -1,1 +1,12 @@
-<h1>shoop</h1>
+<%- include('includes/header') %>
+
+   <body>
+      <h1>my shop</h1>
+      <% if(!member) { %>
+         <h2>sez authenticeted emasiz</h2>
+         <% } else { %>
+            <h1>siz authenticeted siz <%= member.mb_nick %></h1>
+            <h1>telephone <%= member.mb_phone %></h1>
+            <% } %>
+   </body>
+   <%- include('includes/footer') %>

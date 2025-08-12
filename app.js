@@ -5,7 +5,6 @@ const router = require("./router");
 const router_bssr = require("./router_bssr");
 
 let session = require("express-session");
-const { collection } = require("./schema/member.model");
 const MongoDBStore = require("connect-mongodb-session")(session);
 const store = new MongoDBStore({
   uri: process.env.MONGO_URL,
@@ -29,6 +28,7 @@ app.use(
     saveUninitialized: true,
   })
 );
+
 app.use(function (req, res, next) {
   res.locals.member = req.session.member;
   next();

@@ -21,9 +21,9 @@ router_bssr
 
 // router_bssr.get("/logout", ShopController.logout);
 
-// router_bssr.get("/check-me", ShopController.checkSessions);
+router_bssr.get("/check_me",ShopController.checkSessions)
 
-router_bssr.get("products/collections", ShopController.getMyShopData);
+router_bssr.get("/products/collections", ShopController.getMyShopData);
 // router_bssr.post(
 //   "/products/create",
 //   ShopController.validateAuthShopp,
