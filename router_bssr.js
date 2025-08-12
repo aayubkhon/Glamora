@@ -2,7 +2,7 @@ const express = require("express");
 const router_bssr = express.Router();
 const ShopController = require("./controllers/ShopController");
 const productController = require("./controllers/productController");
-const { uploadProductImage } = require("./utils/upload-multer");
+const uploader_product  = require("./utils/upload-multer")("products");
 
 // const uploader_memeber = require("./utils/upload-multer")("members");
 /****************************
@@ -27,7 +27,7 @@ router_bssr.get("/products/collections", ShopController.getMyShopData);
 router_bssr.post(
   "/products/create",
   ShopController.validateAuthShop,
-  uploadProductImage.single("product_image"),
+  uploader_product.array("product_images",5),
   productController.addNewProduct
 );
 router_bssr.post(
