@@ -32,7 +32,7 @@ router_bssr.post(
 );
 router_bssr.post(
   "/products/edit/:id",
-  // ShopController.validateAuthShopp,
+  ShopController.validateAuthShop,
   productController.updateChoosenProduct
 );
 

@@ -37,7 +37,16 @@ productController.addNewProduct = async (req, res) => {
 productController.updateChoosenProduct = async (req, res) => {
   try {
     console.log("POST: cont/updateChoosenProduct");
+    const product = new Product();
+    const id = req.params.id;
+    const result = await product.updateChoosenProductData(
+      id,
+      req.body,
+      req.member._id
+    );
+    await res.json({ state: "success", data: result });
   } catch (err) {
     console.log(`ERROR, cont/updateChoosenProduct,${err.message}`);
+    res.json({ state: "fail", message: err.message });
   }
 };
