@@ -9,7 +9,7 @@ const uploader_product  = require("./utils/upload-multer")("products");
  *         BSSR EJS        *
  ***************************/
 
-// router_bssr.get("/", ShopController.home);
+router_bssr.get("/", ShopController.home);
 
 router_bssr
   .get("/signup", ShopController.getSignupMyShop)
