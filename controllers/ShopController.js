@@ -88,8 +88,15 @@ ShopController.loginProcess = async (req, res) => {
 };
 
 ShopController.logout = (req, res) => {
-  console.log("GET cont.logout");
-  res.send("logout page");
+  try {
+    console.log("GET cont/logout");
+    req.session.destroy(function () {
+      res.redirect("/shop");
+    });
+  } catch (err) {
+    console.log(`ERROR, cont/logout,${err.message}`);
+    res.json({ state: "fail", message: err.message });
+  }
 };
 
 ShopController.validateAuthShop = (req, res, next) => {

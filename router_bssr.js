@@ -20,7 +20,7 @@ router_bssr
   .get("/login", ShopController.getLoginMyShop)
   .post("/login", ShopController.loginProcess);
 
-// router_bssr.get("/logout", ShopController.logout);
+router_bssr.get("/logout", ShopController.logout);
 
 router_bssr.get("/check_me", ShopController.checkSessions);
 
