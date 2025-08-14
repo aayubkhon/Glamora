@@ -71,7 +71,9 @@ ShopController.loginProcess = async (req, res) => {
 
     req.session.member = result;
     req.session.save(function () {
-      res.redirect("/shop/products/collections");
+      result.mb_type === "ADMIN"
+        ? res.redirect("/shop/all-collections")
+        : res.redirect("/shop/products/collections");
     });
   } catch (err) {
     console.log(`ERROR, cont/loginProcess,${err.message}`);
