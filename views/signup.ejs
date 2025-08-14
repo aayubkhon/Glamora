@@ -46,8 +46,8 @@
               <span class="media_text">Shop image</span>
               <div class="filebox bs3-primary preview-image">
                 <label for="input_file">Download image</label>
-                <input type="file" id="input_file" name="shopp_img"
-                  class="upload-hidden form-control-file shopp_img" />
+                <input type="file" id="input_file" name="shop_img"
+                  class="upload-hidden form-control-file shop_img" />
               </div>
               <p class="thubnail_desc">
                 Download Shopp images here.<br />Important instructions: .jpg
@@ -69,7 +69,7 @@
       fileTarget.on("change", function () {
         if (window.FileReader) {
           const uploading_file = $(this)[0].files[0];
-          console.log("javob", uploading_file);
+          console.log("answer", uploading_file);
           const fileType = uploading_file["type"];
           const validImagestype = ["image/jpg", "image/jpeg", "image/png"];
           if (!validImagestype.includes(fileType)) {
@@ -95,7 +95,7 @@
       const mb_password = $(".mb_password ").val();
       const mb_phone = $(".mb_phone ").val();
       const mb_confirm_password = $(".mb_confirm_password ").val();
-      const shopp_img = $(".shop_img").get(0).files[0] ?? null;
+      const shop_img = $(".shop_img").get(0).files[0] ?? null;
 
       if (
         mb_nick == "" ||
@@ -109,7 +109,7 @@
         alert(`Please write true password`);
         return false;
       }
-      if (!shopp_img) {
+      if (!shop_img) {
         alert("Please download images");
         return false;
       }

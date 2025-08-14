@@ -3,6 +3,7 @@ const router_bssr = express.Router();
 const ShopController = require("./controllers/ShopController");
 const productController = require("./controllers/productController");
 const uploader_product  = require("./utils/upload-multer")("products");
+const uploader_members = require("./utils/upload-multer")("members");
 
 // const uploader_memeber = require("./utils/upload-multer")("members");
 /****************************
@@ -13,7 +14,7 @@ router_bssr.get("/", ShopController.home);
 
 router_bssr
   .get("/signup", ShopController.getSignupMyShop)
-  .post("/signup", ShopController.signupProcess);
+  .post("/signup",uploader_members.single("shop_img"), ShopController.signupProcess);
 
 router_bssr
   .get("/login", ShopController.getLoginMyShop)
