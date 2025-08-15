@@ -24,8 +24,8 @@ productController.addNewProduct = async (req, res) => {
     });
     const result = await product.addNewProductData(data, req.member);
     const html = `<script>
-                  alert(new jewellry added successfully);
-                  window.location.replace('/shop/products/collections)
+                  alert('new product added successfully');
+                  window.location.replace('/shop/products/collections')
                   </script>`;
     res.end(html);
     assert.ok(result, Definer.product_err1);
