@@ -2,6 +2,7 @@ const assert = require("assert");
 const Member = require("../models/Member");
 const Product = require("../models/Product");
 const Definer = require("../lib/mistake");
+const Shop = require("../models/Shop");
 
 let ShopController = module.exports;
 
@@ -72,13 +73,13 @@ ShopController.loginProcess = async (req, res) => {
   try {
     console.log("POST: cont/loginProcess");
     const data = req.body;
-    member = new Member();
+    const member = new Member();
     result = await member.loginData(data);
 
     req.session.member = result;
     req.session.save(function () {
       result.mb_type === "ADMIN"
-        ? res.redirect("/shop/all-collections")
+        ? res.redirect("/shop/all-shop")
         : res.redirect("/shop/products/collections");
     });
   } catch (err) {
@@ -116,5 +117,42 @@ ShopController.checkSessions = (req, res) => {
     res.json({ state: "success", data: req.session.member });
   } else {
     res.json({ state: "fail", message: "You are not authenticated" });
+  }
+};
+
+ShopController.validateAdmin = (req, res, next) => {
+  if (req.session?.member?.mb_type === "ADMIN") {
+    req.member = req.session.member;
+    next();
+  } else {
+    const html = `<script>
+          alert('Admin page: Permission denied!');
+          window.location.replace('/shop');
+          </script>`;
+    res.end(html);
+  }
+};
+
+ShopController.getAllShop = async (req, res) => {
+  try {
+    console.log("GET: cont/getAllShop");
+    const shop = new Shop();
+    const shop_data = await shop.getAllShopsData();
+    res.render("all-shop", { shop_data: shop_data });
+  } catch (err) {
+    console.log(`ERROR, cont/getAllShop,${err.message}`);
+    res.json({ state: "fail", message: err.message });
+  }
+};
+
+ShopController.updateShopByAdmin = async (req, res) => {
+  try {
+    console.log("POST: cont/updateShopByAdmin");
+    const shop = new Shop();
+    const result = await shop.updateShopByAdminData(req.body);
+    await res.json({ state: "success", data: result });
+  } catch (err) {
+    console.log(`ERROR, cont/updateShopByAdmin,${err.message}`);
+    res.json({ state: "fail", message: err.message });
   }
 };
