@@ -4,11 +4,21 @@ const ShopController = require("./controllers/ShopController");
 const productController = require("./controllers/productController");
 const uploader_product = require("./utils/upload-multer")("products");
 const uploader_members = require("./utils/upload-multer")("members");
+const rateLimit = require("express-rate-limit");
 
 // const uploader_member = require("./utils/upload-multer")("members");
 /****************************
  *         BSSR EJS        *
  ***************************/
+
+const signupLimiter = rateLimit({
+  windowMs: 15 * 60 * 1000,
+  max: 10,
+  message: { state: "fail", message: "Too many attempts, try again later" },
+});
+
+const memberController = require("./controllers/memberController");
+
 
 router_bssr.get("/", ShopController.home);
 
@@ -20,6 +30,7 @@ router_bssr
     ShopController.signupProcess
   );
 
+router_bssr.post("/signup", signupLimiter, memberController.signup);
 router_bssr
   .get("/login", ShopController.getLoginMyShop)
   .post("/login", ShopController.loginProcess);

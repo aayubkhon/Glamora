@@ -21,6 +21,8 @@ memberController.signup = async (req, res) => {
     res.json({ state: "fail", message: err.message });
   }
 };
+
+
 memberController.login = async (req, res) => {
   try {
     console.log("POST: cont/login");

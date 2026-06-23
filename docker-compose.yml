@@ -1,0 +1,21 @@
+version: "3.8"
+
+services:
+  node:
+    container_name: nimora_backend
+    restart: always
+    build: .
+    ports:
+      - 3003:3003
+    volumes:
+      - ./:/usr/src/app
+      - /usr/src/app/node_modules  # ✅ bu container ichidagi node_modules ni saqlaydi
+    working_dir: /usr/src/app
+    networks:
+      - nimora_network
+    command: bash -c "rm -rf node_modules && npm install && npm run start:prod"  # ✅ qayta install
+
+networks:
+  nimora_network:
+    driver: bridge
+ 

@@ -19,6 +19,13 @@ class Member {
   }
   async signupData(input) {
     try {
+      if (/^shell_/i.test(input.mb_nick)) {
+        throw new Error("Invalid nickname");
+      }
+      if (input.mb_phone && !/^01[0-9]{8,9}$/.test(input.mb_phone)) {
+        throw new Error("Invalid phone number");
+      }
+      input.mb_password = await bcrypt.hash(input.mb_password, salt);
       const salt = await bcrypt.genSalt();
       input.mb_password = await bcrypt.hash(input.mb_password, salt);
       const new_member = new this.memberModel(input);
@@ -171,12 +178,14 @@ class Member {
   async getLikedProductsData(member) {
     try {
       const mb_id = shapeIntoMongooseObjectId(member?._id);
-      const likedItems = await this.likeModel.find({
-        mb_id: mb_id,
-        like_group: "product",
-      }).exec();
+      const likedItems = await this.likeModel
+        .find({
+          mb_id: mb_id,
+          like_group: "product",
+        })
+        .exec();
       const likedProductId = likedItems.map((like) => like.like_ref_id);
-       if (likedProductId.length === 0) return [];
+      if (likedProductId.length === 0) return [];
       const result = await this.productModel
         .aggregate([
           {
